@@ -2,7 +2,8 @@
 # Este archivo .gitignore ha sido creado automáticamente por Microsoft(R) Visual Studio.
 ################################################################################
 
-/Clase01/Clase01/bin
-/Clase01/Clase01/obj
 .vs
-/Clase01/Clase02/bin/Debug/net8.0
+/Clase01/bin
+/Clase01/obj
+/Clase02/bin
+/Clase02/obj
