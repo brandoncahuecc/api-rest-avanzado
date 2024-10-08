@@ -1,14 +1,15 @@
-﻿using Clase03.Servicios;
+﻿using Clase03.Modelos.Global;
+using Clase03.Servicios;
 using MediatR;
 
 namespace Clase03.Mediadores
 {
-    public class EliminarCategoriaRequest : IRequest<bool>
+    public class EliminarCategoriaRequest : IRequest<Respuesta<Mensaje, Mensaje>>
     {
         public int Id { get; set; }
     }
 
-    public class EliminarCategoriaHandler : IRequestHandler<EliminarCategoriaRequest, bool>
+    public class EliminarCategoriaHandler : IRequestHandler<EliminarCategoriaRequest, Respuesta<Mensaje, Mensaje>>
     {
         private readonly ICategoriaServicio _categoriaServicio;
 
@@ -17,9 +18,9 @@ namespace Clase03.Mediadores
             _categoriaServicio = categoriaServicio;
         }
 
-        public async Task<bool> Handle(EliminarCategoriaRequest request, CancellationToken cancellationToken)
+        public async Task<Respuesta<Mensaje, Mensaje>> Handle(EliminarCategoriaRequest request, CancellationToken cancellationToken)
         {
-            bool resultado = await _categoriaServicio.Eliminar(request.Id);
+            var resultado = await _categoriaServicio.Eliminar(request.Id);
             return resultado;
         }
     }

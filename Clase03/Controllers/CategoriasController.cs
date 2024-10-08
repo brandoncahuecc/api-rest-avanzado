@@ -7,7 +7,7 @@ namespace Clase03.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriasController : ControllerBase
+    public class CategoriasController : CustomeControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -20,21 +20,21 @@ namespace Clase03.Controllers
         public async Task<IActionResult> Get()
         {
             var respuesta = await _mediator.Send(new ListarCategoriaRequest());
-            return Ok(respuesta);
+            return RespuestaPerzonalizada(respuesta);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             var respuesta = await _mediator.Send(new ObtenerCategoriaRequest() { Id = id });
-            return Ok(respuesta);
+            return RespuestaPerzonalizada(respuesta);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(CrearCategoriaRequest request)
         {
             var respuesta = await _mediator.Send(request);
-            return Ok(respuesta);
+            return RespuestaPerzonalizada(respuesta);
         }
 
         [HttpPut("{id}")]
@@ -42,14 +42,14 @@ namespace Clase03.Controllers
         {
             request.IdCategoria = id;
             var respuesta = await _mediator.Send(request);
-            return Ok(respuesta);
+            return RespuestaPerzonalizada(respuesta);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             var respuesta = await _mediator.Send(new EliminarCategoriaRequest() { Id = id });
-            return Ok(respuesta);
+            return RespuestaPerzonalizada(respuesta);
         }
     }
 }

@@ -1,15 +1,16 @@
 ﻿using Clase03.Modelos;
+using Clase03.Modelos.Global;
 using Clase03.Servicios;
 using MediatR;
 
 namespace Clase03.Mediadores
 {
-    public class ObtenerCategoriaRequest : IRequest<Categoria>
+    public class ObtenerCategoriaRequest : IRequest<Respuesta<Categoria, Mensaje>>
     {
         public int Id { get; set; }
     }
 
-    public class ObtenerCategoriaHandler : IRequestHandler<ObtenerCategoriaRequest, Categoria>
+    public class ObtenerCategoriaHandler : IRequestHandler<ObtenerCategoriaRequest, Respuesta<Categoria, Mensaje>>
     {
         private readonly ICategoriaServicio _categoriaServicio;
 
@@ -18,9 +19,9 @@ namespace Clase03.Mediadores
             _categoriaServicio = categoriaServicio;
         }
 
-        public async Task<Categoria> Handle(ObtenerCategoriaRequest request, CancellationToken cancellationToken)
+        public async Task<Respuesta<Categoria, Mensaje>> Handle(ObtenerCategoriaRequest request, CancellationToken cancellationToken)
         {
-            Categoria categoria = await _categoriaServicio.ObtenerUno(request.Id);
+            var categoria = await _categoriaServicio.ObtenerUno(request.Id);
             return categoria;
         }
     }

@@ -1,17 +1,18 @@
 ﻿using Clase03.Modelos;
+using Clase03.Modelos.Global;
 using Clase03.Servicios;
 using MediatR;
 
 namespace Clase03.Mediadores
 {
-    public class ActualizarCategoriaRequest : IRequest<Categoria>
+    public class ActualizarCategoriaRequest : IRequest<Respuesta<Categoria, Mensaje>>
     {
         public int IdCategoria { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
     }
 
-    public class ActualizarCategoriaHandler : IRequestHandler<ActualizarCategoriaRequest, Categoria>
+    public class ActualizarCategoriaHandler : IRequestHandler<ActualizarCategoriaRequest, Respuesta<Categoria, Mensaje>>
     {
         private readonly ICategoriaServicio _categoriaServicio;
 
@@ -20,7 +21,7 @@ namespace Clase03.Mediadores
             _categoriaServicio = categoriaServicio;
         }
 
-        public async Task<Categoria> Handle(ActualizarCategoriaRequest request, CancellationToken cancellationToken)
+        public async Task<Respuesta<Categoria, Mensaje>> Handle(ActualizarCategoriaRequest request, CancellationToken cancellationToken)
         {
             Categoria categoria = new()
             {

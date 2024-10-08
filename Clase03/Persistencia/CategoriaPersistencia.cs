@@ -1,4 +1,5 @@
 ﻿using Clase03.Modelos;
+using Clase03.Modelos.Global;
 using Dapper;
 using MySql.Data.MySqlClient;
 using Org.BouncyCastle.Asn1.Ocsp;
@@ -8,11 +9,11 @@ namespace Clase03.Persistencia
 {
     public interface ICategoriaPersistencia
     {
-        Task<List<Categoria>> ObtenerTodos();
-        Task<Categoria> ObtenerUno(int id);
-        Task<Categoria> Crear(Categoria request);
-        Task<Categoria> Actualizar(Categoria request);
-        Task<bool> Eliminar(int id);
+        Task<Respuesta<List<Categoria>, Mensaje>> ObtenerTodos();
+        Task<Respuesta<Categoria, Mensaje>> ObtenerUno(int id);
+        Task<Respuesta<Categoria, Mensaje>> Crear(Categoria request);
+        Task<Respuesta<Categoria, Mensaje>> Actualizar(Categoria request);
+        Task<Respuesta<Mensaje, Mensaje>> Eliminar(int id);
     }
 
     public class CategoriaPersistencia : ICategoriaPersistencia
@@ -24,10 +25,13 @@ namespace Clase03.Persistencia
             _cadenaConexion = Environment.GetEnvironmentVariable("StringConnection") ?? string.Empty;
         }
 
-        public async Task<Categoria> Actualizar(Categoria request)
+        public async Task<Respuesta<Categoria, Mensaje>> Actualizar(Categoria request)
         {
             using (MySqlConnection conn = new(_cadenaConexion))
             {
+                Respuesta<Categoria, Mensaje> respuesta = new();
+                Mensaje mensaje;
+
                 try
                 {
                     string sql = @"UPDATE categoria
@@ -45,13 +49,15 @@ WHERE idcategoria=@Id;";
                     var resultado = await conn.ExecuteAsync(sql, parametros);
 
                     if (resultado > 0)
-                        return request;
+                        return respuesta.RespuestaExito(request);
 
-                    return null;
+                    mensaje = new("NO-UPDATE-DB", "No fue posible actualizar la categoria, vuelva a intertarlo o valide que exista");
+                    return respuesta.RespuestaError(400, mensaje);
                 }
                 catch (Exception ex)
                 {
-                    return null;
+                    mensaje = new("NO-CON-DB", "Tenemos problemas con la base de datos, reporte al administrador", ex);
+                    return respuesta.RespuestaError(500, mensaje);
                 }
                 finally
                 {
@@ -61,10 +67,13 @@ WHERE idcategoria=@Id;";
             }
         }
 
-        public async Task<Categoria> Crear(Categoria request)
+        public async Task<Respuesta<Categoria, Mensaje>> Crear(Categoria request)
         {
             using (MySqlConnection conn = new(_cadenaConexion))
             {
+                Respuesta<Categoria, Mensaje> respuesta = new();
+                Mensaje mensaje;
+
                 try
                 {
                     string sql = @"INSERT INTO categoria
@@ -84,14 +93,16 @@ VALUES(@Nombre, @Descripcion, @Condicion);";
                     {
                         int lastId = await conn.QueryFirstAsync<int>("SELECT LAST_INSERT_ID()");
                         request.IdCategoria = lastId;
-                        return request;
+                        return respuesta.RespuestaExito(request);
                     }
 
-                    return null;
+                    mensaje = new("NO-CREATE-DB", "No fue posible crear la categoria, revise los datos proporcionados y vuelva a intentarlo");
+                    return respuesta.RespuestaError(400, mensaje);
                 }
                 catch (Exception ex)
                 {
-                    return null;
+                    mensaje = new("NO-CON-DB", "Tenemos problemas con la base de datos, reporte al administrador", ex);
+                    return respuesta.RespuestaError(500, mensaje);
                 }
                 finally
                 {
@@ -101,10 +112,13 @@ VALUES(@Nombre, @Descripcion, @Condicion);";
             }
         }
 
-        public async Task<bool> Eliminar(int id)
+        public async Task<Respuesta<Mensaje, Mensaje>> Eliminar(int id)
         {
             using (MySqlConnection conn = new(_cadenaConexion))
             {
+                Respuesta<Mensaje, Mensaje> respuesta = new();
+                Mensaje mensaje;
+
                 try
                 {
                     string sql = @"UPDATE categoria
@@ -120,13 +134,18 @@ WHERE idcategoria=@Id;";
                     var resultado = await conn.ExecuteAsync(sql, parametros);
 
                     if (resultado > 0)
-                        return true;
+                    {
+                        mensaje = new("SUCCESS", "Categoría eliminada exitosamente");
+                        return respuesta.RespuestaExito(mensaje);
+                    }
 
-                    return false;
+                    mensaje = new("NO-DELETE-DB", "Categoría no fue posible eliminarla, valide si existe dentro de los registros");
+                    return respuesta.RespuestaError(400, mensaje);
                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    mensaje = new("NO-CON-DB", "Tenemos problemas con la base de datos, reporte al administrador", ex);
+                    return respuesta.RespuestaError(500, mensaje);
                 }
                 finally
                 {
@@ -136,10 +155,13 @@ WHERE idcategoria=@Id;";
             }
         }
 
-        public async Task<List<Categoria>> ObtenerTodos()
+        public async Task<Respuesta<List<Categoria>, Mensaje>> ObtenerTodos()
         {
             using (MySqlConnection conn = new(_cadenaConexion))
             {
+                Respuesta<List<Categoria>, Mensaje> respuesta = new();
+                Mensaje mensaje;
+
                 try
                 {
                     string sql = "SELECT idcategoria, nombre, descripcion, condicion FROM categoria WHERE condicion = @Condicion;";
@@ -148,11 +170,16 @@ WHERE idcategoria=@Id;";
 
                     var resultado = await conn.QueryAsync<Categoria>(sql, new { Condicion = 1 });
 
-                    return resultado.ToList();
+                    if (resultado is not null)
+                        return respuesta.RespuestaExito(resultado.ToList());
+
+                    mensaje = new("NO-EXIST-DB", "No existen categorias en la base de datos");
+                    return respuesta.RespuestaError(400, mensaje);
                 }
                 catch (Exception ex)
                 {
-                    return new List<Categoria>();
+                    mensaje = new("NO-CON-DB", "Tenemos problemas con la base de datos, reporte al administrador", ex);
+                    return respuesta.RespuestaError(500, mensaje);
                 }
                 finally
                 {
@@ -162,10 +189,13 @@ WHERE idcategoria=@Id;";
             }
         }
 
-        public async Task<Categoria> ObtenerUno(int id)
+        public async Task<Respuesta<Categoria, Mensaje>> ObtenerUno(int id)
         {
             using (MySqlConnection conn = new(_cadenaConexion))
             {
+                Respuesta<Categoria, Mensaje> respuesta = new();
+                Mensaje mensaje;
+
                 try
                 {
                     string sql = @"SELECT idcategoria, nombre, descripcion, condicion 
@@ -174,12 +204,17 @@ FROM categoria WHERE condicion = @Condicion AND idcategoria = @Id;";
                     await conn.OpenAsync();
 
                     var resultado = await conn.QueryFirstAsync<Categoria>(sql, new { Condicion = 1, Id = id });
+                    
+                    if (resultado is not null)
+                        return respuesta.RespuestaExito(resultado);
 
-                    return resultado;
+                    mensaje = new("NO-EXIST-DB", "Categorias no existe en la base de datos");
+                    return respuesta.RespuestaError(400, mensaje);
                 }
                 catch (Exception ex)
                 {
-                    return null;
+                    mensaje = new("NO-CON-DB", "Tenemos problemas con la base de datos, reporte al administrador", ex);
+                    return respuesta.RespuestaError(500, mensaje);
                 }
                 finally
                 {
