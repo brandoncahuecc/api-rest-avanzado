@@ -1,9 +1,8 @@
-using Clase03.Mediadores;
-using Clase03.Persistencia;
-using Clase03.Servicios;
 using rest_biblioteca.Dependencias;
 using rest_biblioteca.Middlewares;
-using Serilog;
+using rest_usuario.Mediadores;
+using rest_usuario.Persistencia;
+using rest_usuario.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,13 +14,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Logging.AgregarLogging();
-builder.Services.AgregarReddisCache();
 
-builder.Services.AddSingleton<ICachePersistencia, CachePersistencia>();
-builder.Services.AddSingleton<ICategoriaPersistencia, CategoriaPersistencia>();
-builder.Services.AddSingleton<ICategoriaServicio, CategoriaServicio>();
+builder.Services.AddSingleton<IGeneradorTokenJwt, GeneradorTokenJwt>();
+builder.Services.AddSingleton<IUsuarioPersistencia, UsuarioPersistencia>();
+builder.Services.AddSingleton<IUsuarioServicio, UsuarioServicio>();
 
-builder.Services.RegistrarMediador<ListarCategoriaHandler>();
+builder.Services.RegistrarMediador<IniciarSesionHandler>();
 
 var app = builder.Build();
 

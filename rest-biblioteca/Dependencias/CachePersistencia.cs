@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
 
-namespace Clase03.Persistencia
+namespace rest_biblioteca.Dependencias
 {
     public interface ICachePersistencia
     {

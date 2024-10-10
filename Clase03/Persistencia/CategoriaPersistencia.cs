@@ -1,9 +1,7 @@
-﻿using Clase03.Modelos;
-using Clase03.Modelos.Global;
-using Dapper;
+﻿using Dapper;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Asn1.Ocsp;
-using static Mysqlx.Expect.Open.Types;
+using rest_biblioteca.Modelos;
+using rest_biblioteca.Modelos.Global;
 
 namespace Clase03.Persistencia
 {

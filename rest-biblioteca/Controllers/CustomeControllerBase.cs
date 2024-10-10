@@ -1,8 +1,7 @@
-﻿using Clase03.Modelos.Global;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using rest_biblioteca.Modelos.Global;
 
-namespace Clase03.Controllers
+namespace rest_biblioteca.Controllers
 {
     public class CustomeControllerBase : ControllerBase
     {

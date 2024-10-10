@@ -1,8 +1,8 @@
-﻿using Clase03.Modelos;
-using Clase03.Modelos.Global;
-using Clase03.Persistencia;
+﻿using Clase03.Persistencia;
 using MediatR;
 using Org.BouncyCastle.Asn1.Ocsp;
+using rest_biblioteca.Modelos;
+using rest_biblioteca.Modelos.Global;
 
 namespace Clase03.Servicios
 {

@@ -1,4 +1,11 @@
-﻿namespace Clase03.Modelos.Global
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace rest_biblioteca.Modelos.Global
 {
     public class Respuesta<TExito, TMensaje>
     {
