@@ -20,6 +20,7 @@ namespace Clase03.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, User")]
         public async Task<IActionResult> Get()
         {
             var respuesta = await _mediator.Send(new ListarCategoriaRequest());
@@ -27,6 +28,7 @@ namespace Clase03.Controllers
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Get(int id)
         {
             var respuesta = await _mediator.Send(new ObtenerCategoriaRequest() { Id = id });

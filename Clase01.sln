@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clase02", "Clase02\Clase02.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clase03", "Clase03\Clase03.csproj", "{7EB8C27B-E755-43C7-86DF-3AB8139ECEB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rest-biblioteca", "rest-biblioteca\rest-biblioteca.csproj", "{C486E43F-C4E6-4426-9ED3-B90042345A4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rest-biblioteca", "rest-biblioteca\rest-biblioteca.csproj", "{C486E43F-C4E6-4426-9ED3-B90042345A4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rest-usuario", "rest-usuario\rest-usuario.csproj", "{450E72D2-3D3D-47BF-9660-C6A54982CB6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rest-usuario", "rest-usuario\rest-usuario.csproj", "{450E72D2-3D3D-47BF-9660-C6A54982CB6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rest-gateway", "rest-gateway\rest-gateway.csproj", "{D141B4FA-53AD-4835-96B1-07E04D62970A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{450E72D2-3D3D-47BF-9660-C6A54982CB6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{450E72D2-3D3D-47BF-9660-C6A54982CB6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{450E72D2-3D3D-47BF-9660-C6A54982CB6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D141B4FA-53AD-4835-96B1-07E04D62970A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D141B4FA-53AD-4835-96B1-07E04D62970A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D141B4FA-53AD-4835-96B1-07E04D62970A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D141B4FA-53AD-4835-96B1-07E04D62970A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

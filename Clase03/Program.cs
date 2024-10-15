@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Logging.AgregarLogging();
 builder.Services.AgregarReddisCache();
+builder.Services.AgregarJwtTokenValidacion();
 
 builder.Services.AddSingleton<ICachePersistencia, CachePersistencia>();
 builder.Services.AddSingleton<ICategoriaPersistencia, CategoriaPersistencia>();

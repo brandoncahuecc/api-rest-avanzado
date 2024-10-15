@@ -8,20 +8,17 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5005"
+      "applicationUrl": "http://localhost:5127"
     },
     "https": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "StringConnection": "Server=192.168.1.20;database=dbticel;Uid=bcahuecc;Pwd=Ab123456*;SslMode=none",
-        "RedisConnection": "192.168.1.20:6379",
-        "ClaveSecretaJwt": "MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:7050;http://localhost:5005"
+      "applicationUrl": "https://localhost:7265;http://localhost:5127"
     },
     "IIS Express": {
       "commandName": "IISExpress",
@@ -48,8 +45,8 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:21355",
-      "sslPort": 44350
+      "applicationUrl": "http://localhost:18896",
+      "sslPort": 44335
     }
   }
 }

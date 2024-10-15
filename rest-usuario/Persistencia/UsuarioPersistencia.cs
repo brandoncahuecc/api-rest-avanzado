@@ -7,7 +7,9 @@ namespace rest_usuario.Persistencia
 {
     public interface IUsuarioPersistencia
     {
-        Task<Respuesta<Usuario, Mensaje>> BuscarUsuarioPorLogin(string login);
+        Task<Respuesta<Usuario, Mensaje>> BuscarUsuarioPorLogin(string login, int usuarioId);
+        Task<Respuesta<Mensaje, Mensaje>> GuardarTokenRefresco(int usuarioId, string tokenRefresco);
+        Task<Respuesta<Mensaje, Mensaje>> ValidarTokenRefresco(int usuarioId, string tokenRefresco);
     }
 
     public class UsuarioPersistencia : IUsuarioPersistencia
@@ -19,7 +21,7 @@ namespace rest_usuario.Persistencia
             _cadenaConexion = Environment.GetEnvironmentVariable("StringConnection") ?? string.Empty;
         }
 
-        public async Task<Respuesta<Usuario, Mensaje>> BuscarUsuarioPorLogin(string login)
+        public async Task<Respuesta<Usuario, Mensaje>> BuscarUsuarioPorLogin(string login, int usuarioId)
         {
             using (MySqlConnection conn = new(_cadenaConexion))
             {
@@ -42,11 +44,11 @@ clave,
 imagen,
 idsucursal,
 condicion
-FROM usuario WHERE condicion = 1 AND login = @Login;";
+FROM usuario WHERE condicion = 1 AND (login = @Login OR idusuario = @IdUsuario);";
 
                     await conn.OpenAsync();
 
-                    var resultado = await conn.QueryFirstAsync<Usuario>(sql, new { Login = login });
+                    var resultado = await conn.QueryFirstAsync<Usuario>(sql, new { Login = login, IdUsuario = usuarioId });
 
                     if (resultado is not null)
                         return respuesta.RespuestaExito(resultado);
@@ -65,6 +67,28 @@ FROM usuario WHERE condicion = 1 AND login = @Login;";
                         await conn.CloseAsync();
                 }
             }
+        }
+
+        public async Task<Respuesta<Mensaje, Mensaje>> GuardarTokenRefresco(int usuarioId, string tokenRefresco)
+        {
+            Respuesta<Mensaje, Mensaje> respuesta = new();
+
+            /*
+             * Todo el código necesario para almacenar el token en la base de datos
+             */
+
+            return respuesta.RespuestaExito(new Mensaje("SUCCESS", "Token almacenado"));
+        }
+
+        public async Task<Respuesta<Mensaje, Mensaje>> ValidarTokenRefresco(int usuarioId, string tokenRefresco)
+        {
+            Respuesta<Mensaje, Mensaje> respuesta = new();
+
+            /*
+             * Todo el código necesario para validar el token en la base de datos
+             */
+
+            return respuesta.RespuestaExito(new Mensaje("SUCCESS", "Token almacenado"));
         }
     }
 }

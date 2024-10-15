@@ -1,0 +1,58 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7085
+        }
+      ],
+      "UpstreamPathTemplate": "/Login",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Login/Refrescar",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7085
+        }
+      ],
+      "UpstreamPathTemplate": "/Refresh",
+      "UpstreamHttpMethod": [ "Post" ]
+    },
+
+
+
+    {
+      "DownstreamPathTemplate": "/api/Categorias",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7050
+        }
+      ],
+      "UpstreamPathTemplate": "/Categorio",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Categorias/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7050
+        }
+      ],
+      "UpstreamPathTemplate": "/Categorio/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7265"
+  }
+}

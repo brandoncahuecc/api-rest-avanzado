@@ -13,4 +13,6 @@
 /rest-biblioteca/obj
 /rest-usuario/bin
 /rest-usuario/obj
+/rest-gateway/bin
+/rest-gateway/obj
 /logs
