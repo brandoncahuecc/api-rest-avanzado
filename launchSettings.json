@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "rest-gateway": "StartDebugging",
+        "rest-usuario": "StartDebugging",
+        "clase03": "StartDebugging"
+      }
+    }
+  }
+}

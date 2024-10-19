@@ -16,3 +16,5 @@
 /rest-gateway/bin
 /rest-gateway/obj
 /logs
+/obj
+/bin

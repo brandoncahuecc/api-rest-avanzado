@@ -1,0 +1,67 @@
+services:
+
+  rest-gateway:
+    container_name: api-gateway
+    image: ${DOCKER_REGISTRY-}restgateway
+    build:
+      context: .
+      dockerfile: rest-gateway/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - OcelotEnvironment=-docker
+    ports:
+      - "6006:80"
+    networks:
+      redmicroservicios:
+    restart: always
+
+
+  rest-usuario:
+    container_name: api-usuario
+    image: ${DOCKER_REGISTRY-}restusuario
+    build:
+      context: .
+      dockerfile: rest-usuario/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - StringConnection=Server=192.168.1.20;database=dbticel;Uid=bcahuecc;Pwd=Ab123456*;SslMode=none
+      - ClaveSecretaJwt=MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024
+      - TiempoExpiracionJwt=10
+    networks:
+      redmicroservicios:
+    restart: always
+
+
+  rest-categoria:
+    container_name: api-categoria
+    image: ${DOCKER_REGISTRY-}restcategoria
+    build:
+      context: .
+      dockerfile: Clase03/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - StringConnection=Server=192.168.1.20;database=dbticel;Uid=bcahuecc;Pwd=Ab123456*;SslMode=none
+      - ClaveSecretaJwt=MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024
+      - RedisConnection=rest-redis:6379
+    networks:
+      redmicroservicios:
+    restart: always
+    depends_on:
+      rest-redis:
+        condition: service_started
+
+
+  rest-redis:
+    container_name: redis-cache
+    image: redis
+    networks:
+      redmicroservicios:
+    restart: always
+
+
+networks:
+  redmicroservicios:
+    driver: bridge

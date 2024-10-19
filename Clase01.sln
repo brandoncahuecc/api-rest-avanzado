@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rest-biblioteca", "rest-bib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rest-usuario", "rest-usuario\rest-usuario.csproj", "{450E72D2-3D3D-47BF-9660-C6A54982CB6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rest-gateway", "rest-gateway\rest-gateway.csproj", "{D141B4FA-53AD-4835-96B1-07E04D62970A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rest-gateway", "rest-gateway\rest-gateway.csproj", "{D141B4FA-53AD-4835-96B1-07E04D62970A}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{5DA18E53-F0D0-44CD-9602-45EEB13FBF7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{D141B4FA-53AD-4835-96B1-07E04D62970A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D141B4FA-53AD-4835-96B1-07E04D62970A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D141B4FA-53AD-4835-96B1-07E04D62970A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DA18E53-F0D0-44CD-9602-45EEB13FBF7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DA18E53-F0D0-44CD-9602-45EEB13FBF7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DA18E53-F0D0-44CD-9602-45EEB13FBF7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DA18E53-F0D0-44CD-9602-45EEB13FBF7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
