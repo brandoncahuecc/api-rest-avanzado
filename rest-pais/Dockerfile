@@ -11,20 +11,20 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["rest-pais/rest_pais.csproj", "rest-pais/"]
+COPY ["rest-pais/rest-pais.csproj", "rest-pais/"]
 COPY ["rest-biblioteca/rest-biblioteca.csproj", "rest-biblioteca/"]
-RUN dotnet restore "./rest-pais/rest_pais.csproj"
+RUN dotnet restore "./rest-pais/rest-pais.csproj"
 COPY . .
 WORKDIR "/src/rest-pais"
-RUN dotnet build "./rest_pais.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./rest-pais.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 # Esta fase se usa para publicar el proyecto de servicio que se copiará en la fase final.
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./rest_pais.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./rest-pais.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Esta fase se usa en producción o cuando se ejecuta desde VS en modo normal (valor predeterminado cuando no se usa la configuración de depuración)
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "rest_pais.dll"]
+ENTRYPOINT ["dotnet", "rest-pais.dll"]
