@@ -39,7 +39,7 @@ services:
     image: ${DOCKER_REGISTRY-}restcategoria
     build:
       context: .
-      dockerfile: Clase03/Dockerfile
+      dockerfile: rest-categoria/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=80
@@ -54,8 +54,69 @@ services:
         condition: service_started
 
 
+  rest-catalogo:
+    container_name: api-catalogo
+    image: ${DOCKER_REGISTRY-}restcatalogo
+    build:
+      context: .
+      dockerfile: rest-catalogo/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - ClaveSecretaJwt=MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024
+    networks:
+      redmicroservicios:
+    restart: always
+
+
+  rest-pais:
+    container_name: api-pais
+    image: ${DOCKER_REGISTRY-}restpais
+    build:
+      context: .
+      dockerfile: rest-pais/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - StringConnection=Server=192.168.1.20;database=dbticel;Uid=bcahuecc;Pwd=Ab123456*;SslMode=none
+      - ClaveSecretaJwt=MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024
+      - RedisConnection=rest-redis:6379
+    networks:
+      redmicroservicios:
+    restart: always
+    depends_on:
+      rest-redis:
+        condition: service_started
+
+
+  rest-prometheus:
+    container_name: metrics-prometheus
+    image: prom/prometheus
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      redmicroservicios:
+
+
+  rest-grafana:
+    container_name: metrics-grafana
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - rest-prometheus
+    networks:
+      redmicroservicios:
+
+
   rest-redis:
-    container_name: redis-cache
+    container_name: api-redis-cache
     image: redis
     networks:
       redmicroservicios:

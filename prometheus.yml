@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "api-read-prometheus" 
+    static_configs:
+    - targets: ['rest-usuario:80', 'rest-categoria:80', 'rest-catalogo:80', 'rest-pais:80']

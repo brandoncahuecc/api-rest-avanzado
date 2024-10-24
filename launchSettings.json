@@ -6,7 +6,8 @@
       "serviceActions": {
         "rest-gateway": "StartDebugging",
         "rest-usuario": "StartDebugging",
-        "clase03": "StartDebugging"
+        "rest-categoria": "StartDebugging",
+        "rest-catalogo": "StartDebugging"
       }
     }
   }

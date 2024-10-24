@@ -1,9 +1,10 @@
-using Clase03.Mediadores;
-using Clase03.Persistencia;
-using Clase03.Servicios;
+using rest_categoria.Mediadores;
+using rest_categoria.Persistencia;
+using rest_categoria.Servicios;
 using rest_biblioteca.Dependencias;
 using rest_biblioteca.Middlewares;
 using Serilog;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.UseHttpClientMetrics();
 builder.Logging.AgregarLogging();
 builder.Services.AgregarReddisCache();
 builder.Services.AgregarJwtTokenValidacion();
@@ -25,6 +27,9 @@ builder.Services.AddSingleton<ICategoriaServicio, CategoriaServicio>();
 builder.Services.RegistrarMediador<ListarCategoriaHandler>();
 
 var app = builder.Build();
+
+app.UseMetricServer();
+app.UseHttpMetrics();
 
 app.UseMiddleware<CustomeMiddleware>();
 

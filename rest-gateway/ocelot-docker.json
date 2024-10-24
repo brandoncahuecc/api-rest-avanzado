@@ -50,6 +50,60 @@
       ],
       "UpstreamPathTemplate": "/Categorio/{id}",
       "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    },
+
+
+
+    {
+      "DownstreamPathTemplate": "/api/Categorias",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "rest-pais",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/Categoria",
+      "UpstreamHttpMethod": [ "Get", "Post" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Categorias/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "rest-pais",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/Categoria/{id}",
+      "UpstreamHttpMethod": [ "Get", "Put", "Delete" ]
+    },
+
+
+
+    {
+      "DownstreamPathTemplate": "/api/Catalogos",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "rest-catalogo",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/Catalogos",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Catalogos/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "rest-catalogo",
+          "Port": 80
+        }
+      ],
+      "UpstreamPathTemplate": "/Catalogos/{id}",
+      "UpstreamHttpMethod": [ "Get" ]
     }
   ],
   "GlobalConfiguration": {

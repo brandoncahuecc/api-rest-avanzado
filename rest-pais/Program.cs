@@ -1,9 +1,10 @@
-using Prometheus;
+using rest_pais.Mediadores;
+using rest_pais.Persistencia;
+using rest_pais.Servicios;
 using rest_biblioteca.Dependencias;
 using rest_biblioteca.Middlewares;
-using rest_usuario.Mediadores;
-using rest_usuario.Persistencia;
-using rest_usuario.Servicios;
+using Serilog;
+using Prometheus;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,12 +17,14 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.UseHttpClientMetrics();
 builder.Logging.AgregarLogging();
+builder.Services.AgregarReddisCache();
+builder.Services.AgregarJwtTokenValidacion();
 
-builder.Services.AddSingleton<IGeneradorTokenJwt, GeneradorTokenJwt>();
-builder.Services.AddSingleton<IUsuarioPersistencia, UsuarioPersistencia>();
-builder.Services.AddSingleton<IUsuarioServicio, UsuarioServicio>();
+builder.Services.AddSingleton<ICachePersistencia, CachePersistencia>();
+builder.Services.AddSingleton<ICategoriaPersistencia, CategoriaPersistencia>();
+builder.Services.AddSingleton<ICategoriaServicio, CategoriaServicio>();
 
-builder.Services.RegistrarMediador<IniciarSesionHandler>();
+builder.Services.RegistrarMediador<ListarCategoriaHandler>();
 
 var app = builder.Build();
 

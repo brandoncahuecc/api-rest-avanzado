@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 using rest_biblioteca.Modelos;
 using rest_biblioteca.Modelos.Global;
 
-namespace Clase03.Persistencia
+namespace rest_categoria.Persistencia
 {
     public interface ICategoriaPersistencia
     {

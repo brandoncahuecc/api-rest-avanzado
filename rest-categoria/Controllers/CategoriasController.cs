@@ -1,11 +1,11 @@
-﻿using Clase03.Mediadores;
+﻿using rest_categoria.Mediadores;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using rest_biblioteca.Controllers;
 
-namespace Clase03.Controllers
+namespace rest_categoria.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

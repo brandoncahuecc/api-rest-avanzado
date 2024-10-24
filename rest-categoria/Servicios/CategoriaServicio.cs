@@ -1,10 +1,10 @@
-﻿using Clase03.Persistencia;
+﻿using rest_categoria.Persistencia;
 using MediatR;
 using Org.BouncyCastle.Asn1.Ocsp;
 using rest_biblioteca.Modelos;
 using rest_biblioteca.Modelos.Global;
 
-namespace Clase03.Servicios
+namespace rest_categoria.Servicios
 {
     public interface ICategoriaServicio
     {
