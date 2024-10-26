@@ -17,9 +17,11 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rest-categoria", "rest-categoria\rest-categoria.csproj", "{6E2134BA-ADF1-47C8-8A38-F9A8CC86BCFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rest-catalogo", "rest-catalogo\rest-catalogo.csproj", "{CA9E681B-6B38-4073-BC1E-C3985DB65531}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rest-catalogo", "rest-catalogo\rest-catalogo.csproj", "{CA9E681B-6B38-4073-BC1E-C3985DB65531}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rest-pais", "rest-pais\rest-pais.csproj", "{162DE000-3127-4BFC-ABE3-2D8A259B6C16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rest-reporte", "rest-reporte\rest-reporte.csproj", "{6ACDE0C4-BEBF-4BCC-ACD0-9CE4B5FD3C22}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{162DE000-3127-4BFC-ABE3-2D8A259B6C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{162DE000-3127-4BFC-ABE3-2D8A259B6C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{162DE000-3127-4BFC-ABE3-2D8A259B6C16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ACDE0C4-BEBF-4BCC-ACD0-9CE4B5FD3C22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ACDE0C4-BEBF-4BCC-ACD0-9CE4B5FD3C22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ACDE0C4-BEBF-4BCC-ACD0-9CE4B5FD3C22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ACDE0C4-BEBF-4BCC-ACD0-9CE4B5FD3C22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

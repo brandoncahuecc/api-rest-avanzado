@@ -17,6 +17,8 @@
 /rest-usuario/obj
 /rest-gateway/bin
 /rest-gateway/obj
+/rest-reporte/bin
+/rest-reporte/obj
 /rest-pais/bin
 /rest-pais/obj
 /logs
