@@ -2,6 +2,7 @@
 using DinkToPdf.Contracts;
 using rest_biblioteca.Modelos;
 using rest_biblioteca.Modelos.Global;
+using rest_reporte.Recursos;
 
 namespace rest_reporte.Servicios
 {
@@ -12,11 +13,13 @@ namespace rest_reporte.Servicios
 
     public class ReporteServicio : IReporteServicio
     {
-        private IConverter _converter;
+        private readonly IConverter _converter;
+        private readonly ICategoriaCliente _categoria;
 
-        public ReporteServicio(IConverter converter)
+        public ReporteServicio(IConverter converter, ICategoriaCliente categoria)
         {
             _converter = converter;
+            _categoria = categoria;
         }
 
         private string GenerarPdf(string html)
@@ -25,8 +28,8 @@ namespace rest_reporte.Servicios
             {
                 GlobalSettings = new GlobalSettings
                 {
-                    PaperSize = new PechkinPaperSize("5in", "10in"),
-                    //PaperSize = PaperKind.Letter,
+                    //PaperSize = new PechkinPaperSize("5in", "10in"),
+                    PaperSize = PaperKind.Letter,
                     Orientation = Orientation.Portrait
                 },
                 Objects =
@@ -76,15 +79,31 @@ namespace rest_reporte.Servicios
             {
                 case "Compra":
                     {
-                        string html = "<!DOCTYPE html><html lang=\"es\"><head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <title>Reporte de Ingresos</title> <style> body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; } h1 { text-align: center; color: #333; } table { width: 100%; border-collapse: collapse; margin-bottom: 20px; } table, th, td { border: 1px solid #ddd; } th, td { padding: 10px; text-align: left; } th { background-color: #f2f2f2; } .summary { margin-bottom: 20px; } .summary p { margin: 5px 0; } </style></head><body> <img src=\"@LogoImg\" width=\"100\" height=\"100\"><h1>Reporte de Ingresos</h1> <div class=\"summary\"> <p><strong>Fecha del Reporte:</strong>@FechaReporte</p> <p><strong>Total de Ingresos:</strong>@TotalIngresos</p> </div> <table> <thead> <tr> <th>ID Ingreso</th> <th>Proveedor</th> <th>Fecha Hora</th> <th>Total Compra</th> <th>Forma Pago</th> <th>Estado</th> </tr> </thead> <tbody> @DetalleArticulos </tbody> </table></body></html>";
-                        string htmlDetalleBase = "<tr> <td>@IdIngreso</td> <td>@IdArticulo</td> <td>@Cantidad</td> <td>@PrecioCompra</td> <td>@PrecioVenta</td> <td>@Stock</td> </tr>";
+                        string html = Plantillas.HtmlCompra;
+                        string htmlDetalleBase = "<tr> <td>@IdCategoria</td> <td>@Nombre</td> <td>@Descripcion</td> <td>@Condicion</td> </tr>";
                         string logoUrl = "https://png.pngtree.com/png-clipart/20190516/original/pngtree-eagle-business-logo-design-creative-logo-design-concept-with-artistic-png-image_3623564.jpg";
 
+                        var categorias = await _categoria.ObtenerCategorias();
+
+                        if (!categorias.EsExitoso)
+                            return respuesta.RespuestaError(categorias.CodigoEstado, categorias.Mensaje);
+
+                        List<Categoria> categoriasResult = categorias.Objeto;
                         string htmlDetalle = string.Empty;
-                        for (int i = 0; i < 5; i++)
+
+                        categoriasResult.ForEach(categoria =>
                         {
-                            htmlDetalle += htmlDetalleBase;
-                        }
+                            htmlDetalle += htmlDetalleBase
+                            .Replace("@IdCategoria", categoria.IdCategoria.ToString())
+                            .Replace("@Nombre", categoria.Nombre)
+                            .Replace("@Descripcion", categoria.Descripcion)
+                            .Replace("@Condicion", categoria.Condicion == 1 ? "Activo" : "Inactivo");
+                        });
+
+                        //for (int i = 0; i < 5; i++)
+                        //{
+                        //    htmlDetalle += htmlDetalleBase;
+                        //}
 
                         string imagen = await ObtenerBase64Imagen(logoUrl);
 

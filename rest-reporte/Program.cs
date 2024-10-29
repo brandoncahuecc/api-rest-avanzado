@@ -5,6 +5,7 @@ using rest_biblioteca.Dependencias;
 using rest_biblioteca.Middlewares;
 using rest_reporte.Mediadores;
 using rest_reporte.Servicios;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,12 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddHttpClient("ClienteCategoria", cliente =>
+{
+    cliente.BaseAddress = new Uri(Environment.GetEnvironmentVariable("UrlBaseCategoria") ?? string.Empty);
+    cliente.DefaultRequestHeaders.Add("Accept", "application/json");
+});
+
 //builder.Services.UseHttpClientMetrics();
 builder.Logging.AgregarLogging();
 builder.Services.AgregarReddisCache();
@@ -23,6 +30,7 @@ builder.Services.AgregarJwtTokenValidacion();
 builder.Services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 builder.Services.AddSingleton<ICachePersistencia, CachePersistencia>();
 //builder.Services.AddSingleton<ICategoriaPersistencia, CategoriaPersistencia>();
+builder.Services.AddSingleton<ICategoriaCliente, CategoriaCliente>();
 builder.Services.AddSingleton<IReporteServicio, ReporteServicio>();
 
 builder.Services.RegistrarMediador<ObtenerReporteRequest>();

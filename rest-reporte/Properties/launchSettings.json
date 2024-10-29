@@ -29,7 +29,8 @@
         "ASPNETCORE_ENVIRONMENT": "Development",
         "StringConnection": "Server=192.168.1.20;database=dbticel;Uid=bcahuecc;Pwd=Ab123456*;SslMode=none",
         "RedisConnection": "192.168.1.20:6379",
-        "ClaveSecretaJwt": "MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024"
+        "ClaveSecretaJwt": "MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024MiClaveSecreta@NetCore2024",
+        "UrlBaseCategoria": "http://192.168.1.20:6006/"
       }
     },
     "IIS Express": {
